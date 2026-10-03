@@ -58,16 +58,12 @@ diary(){if(!S.diaryOK)return diaryLock();
  found('diary','diary-found');let p=0;const n=CFG.diary.length;
  const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
  memDone();show()},
-frame(){found('frame','photo-found');
- const w=document.createElement('div');
- if(CFG.frame)w.append(txt(CFG.frame));
- if(CFG.embed){
-  const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;
-  f.style.cssText='width:100%;height:50vh;min-height:220px;border:3px solid #fff;margin-top:10px;background:#fff';w.append(f);
-  const k=document.createElement('a');k.href=CFG.embed;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;
-  k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)
- }else w.append(txt('（尚未設定嵌入網址）'));
- dlg('MEMORY',w);memDone()},
+frame(){found('frame','photo-found');const w=document.createElement('div');const im=new Image();im.className='photo';
+ 
+ im.src=CFG.photo;w.append(im,txt(CFG.frame));
+ if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:240px;border:3px solid #fff;margin-top:10px';w.append(f)}
+ if(CFG.link){const k=document.createElement('a');k.href=CFG.link;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
+ dlg('MEMORY: PHOTO',w);memDone()},
 
 wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
  setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
