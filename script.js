@@ -48,7 +48,7 @@ const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]
 
 function diaryLock(){const w=document.createElement('div');w.append(txt('不管怎麼翻，日記本都會紋絲不動的，哈！\n（大概是被調皮小狗鎖上了）\n怪盜小狗   留'));
  const i=document.createElement('input');i.type='text';i.className='codein';i.maxLength=4;i.inputMode='numeric';i.placeholder='----';w.append(i);
- const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('密碼錯誤');i.value='';i.focus()}};
+ const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('怎麼可以輸入錯誤，不可饒恕！');i.value='';i.focus()}};
  i.onkeydown=e=>{if(e.key==='Enter')go()};
  dlg('LOCKED DIARY',w,[{t:'UNLOCK',f:go},{t:'CLOSE',f:closeDlg}]);setTimeout(()=>i.focus(),60)}
 
