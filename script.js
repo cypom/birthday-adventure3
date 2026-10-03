@@ -1,3 +1,87 @@
+'use strict';
+/* ===== 在這裡改文字、照片、音樂、密碼 ===== */
+const CFG={
+bgm:'slo-mo.mp3',
+music:'i-love-you-3000.mp3',
+photo:'photo.jpg',
+pass:'0530',
+diaryCode:'1005',
+bedNote:'毯子底下有一張小紙條，和一個神奇的布包，框啷框啷的不知道是什麼：\n\n「分針停滯的那刻，就是鑰匙。\n記得帶著布包去找小狗。」',
+diary:['在日記本前來來回回躊躇了許久，我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個她。\n這本日記，是為你準備的第一個秘密。','翻到這一頁的你，\n一定發現這個房間有點不一樣了。','繼續探索吧，\n每一件物品都藏著一段回憶。'],
+frame:'這張照片……是那天最自然的笑容。（請換成你們的回憶）',
+shirt:'那件黑色襯衫，還留著那天的味道。（請換成相關回憶）',
+drawer:'抽屜裡有一張小紙條：「謝謝你一直都在。」',
+plush:'你找到我了！我是守護這個房間的小狗。',
+speaker:'I Love You 3000',
+final:'親愛的 ○○：\n\n生日快樂！\n這一路上的每一個回憶，都是因為有你才特別。\n願新的一歲，溫暖、可愛、一切順心。\n\n— 署名'};
+/* ======================================= */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const S={state:'identity-check',got:{},open:false,playing:false,mode:'bgm',diaryOK:false,done:false,after:null};
+const A={bgm:null,love:null};
+const IDS=['diary','frame','shirt','drawer','plush','speaker'];
+const cnt=()=>IDS.filter(i=>S.got[i]).length;
+const setState=s=>{S.state=s;document.body.dataset.state=s};
+const txt=t=>{const d=document.createElement('div');d.textContent=t;return d};
+const digits=v=>String(v||'').normalize('NFKC').replace(/\D/g,'');
+function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.className='show';clearTimeout(toast.t);toast.t=setTimeout(()=>e.className='',2400)}
+
+/* ---- 音樂 ---- */
+function mk(src,loop){try{const a=new Audio(src);a.loop=loop;a.preload='auto';return a}catch(e){return null}}
+function playA(a){try{const r=a&&a.play();r&&r.catch&&r.catch(()=>{})}catch(e){}}
+function startBgm(){if(S.mode!=='bgm')return;if(!A.bgm)A.bgm=mk(CFG.bgm,true);if(A.bgm&&A.bgm.paused)playA(A.bgm)}
+document.addEventListener('pointerdown',startBgm);
+
+/* ---- 對話框 / HUD ---- */
+function dlg(title,node,btns){$('#dt').textContent=title;const b=$('#db');b.className='';void b.offsetWidth;b.className='flip';b.innerHTML='';b.append(node);
+const bt=$('#dbtn');bt.innerHTML='';(btns||[{t:'CLOSE',f:closeDlg}]).forEach(x=>{const k=document.createElement('button');k.type='button';k.className='btn';k.textContent=x.t;k.onclick=x.f;bt.append(k)});$('#dlg').hidden=false}
+function closeDlg(){$('#dlg').hidden=true;const a=S.after;S.after=null;a&&a()}
+function hud(){$('#mem').textContent='MEMORIES\n'+IDS.map(i=>S.got[i]?'▣':'□').join(' ');
+const q=[['Explore the room',S.open],['Find the diary',S.got.diary],['Find the photo',S.got.frame],['Find the black shirt',S.got.shirt],['Discover all memories',cnt()===6]];
+$('#quest').textContent='QUEST'+(cnt()===6?' COMPLETE':'')+'\n'+q.map(a=>(a[1]?'▣ ':'□ ')+a[0]).join('\n')}
+const chk=()=>{if(cnt()===6&&!S.done){S.done=true;complete()}};
+const memDone=()=>{S.after=chk};
+function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FOUND!');if(st)setState(st)}
+
+const LOCK={frame:['diary','先打開日記本吧。'],wardrobe:['frame','也許照片裡有線索……'],drawer:['shirt','抽屜鎖著，衣櫃裡也許有線索。'],plush:['drawer','抽屜裡好像有提示。'],speaker:[null,'再多找幾個回憶，音響才會有反應。']};
+const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]):false};
+
+/* ---- 日記本密碼鎖 ---- */
+function diaryLock(){const w=document.createElement('div');w.append(txt('日記本上了鎖。\n請輸入 4 位數密碼。'));
+ const i=document.createElement('input');i.type='text';i.className='codein';i.maxLength=4;i.inputMode='numeric';i.placeholder='----';w.append(i);
+ const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('密碼錯誤');i.value='';i.focus()}};
+ i.onkeydown=e=>{if(e.key==='Enter')go()};
+ dlg('LOCKED DIARY',w,[{t:'UNLOCK',f:go},{t:'CLOSE',f:closeDlg}]);setTimeout(()=>i.focus(),60)}
+
+const H={
+window(){toast('窗外的天氣，很適合過生日。')},
+diary(){if(!S.diaryOK)return diaryLock();
+ found('diary','diary-found');let p=0;const n=CFG.diary.length;
+ const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
+ memDone();show()},
+frame(){found('frame','photo-found');const w=document.createElement('div');const im=new Image();im.className='photo';
+ im.onerror=()=>{const p=document.createElement('div');p.className='ph';p.textContent='[ PHOTO PLACEHOLDER ]\n請放入 photo.jpg';im.replaceWith(p)};
+ im.src=CFG.photo;w.append(im,txt(CFG.frame));dlg('MEMORY: PHOTO',w);memDone()},
+wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
+ setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
+drawer(){$('#drawer').classList.add('open');found('drawer');memDone();
+ setTimeout(()=>dlg('DRAWER',txt(CFG.drawer)),1000)},
+plush(){const p=$('#plush');p.classList.add('shake');setTimeout(()=>p.classList.remove('shake'),650);found('plush');memDone();
+ setTimeout(()=>dlg('你找到我了！',txt(CFG.plush)),500)},
+speaker(){const s=$('#speaker');
+ try{if(!A.love)A.love=mk(CFG.music,true);
+  if(S.mode==='bgm'){S.mode='love';if(A.bgm){A.bgm.pause();A.bgm.currentTime=0}}
+  if(S.playing){A.love&&A.love.pause();S.playing=false;s.classList.remove('on');toast('MUSIC OFF')}
+  else{playA(A.love);S.playing=true;s.classList.add('on');toast('NOW PLAYING\n'+CFG.speaker)}}
+ catch(e){toast('NOW PLAYING\n'+CFG.speaker)}
+ if(!S.got.speaker){found('speaker');setTimeout(chk,1400)}},
+bed(){const b=$('#bed');b.classList.add('lift');setTimeout(()=>b.classList.remove('lift'),1000);
+ setTimeout(()=>dlg('NOTE',txt(CFG.bedNote)),600)},
+rug(){toast('嗯？好像沒有什麼……')},
+clock(){toast('時鐘停在 10:05')},
+cake(){const c=$('#cake');if(c.classList.contains('out'))return finalCard();
+ c.classList.add('out');$('#stage').classList.add('dim');setState('final');toast('HAPPY BIRTHDAY');setTimeout(finalCard,1800)}};
+function finalCard(){const w=document.createElement('div');w.append(txt('QUEST COMPLETE\nYou found every birthday memory.\n\n'),txt(CFG.final));
+ dlg('HAPPY BIRTHDAY!',w,[{t:'↻ RESTART',f:()=>location.reload()},{t:'CLOSE',f:closeDlg}])}
 function complete(){setState('memories-complete');
  dlg('ALL MEMORIES FOUND.',txt('QUEST COMPLETE.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('點擊蛋糕，吹熄蠟燭吧');if(!S.playing)H.speaker()}}])}
 
