@@ -2,7 +2,7 @@
 /* ===== 在這裡改文字、連結、音樂、密碼 ===== */
 const CFG={
 bgm:'slo-mo.mp3',
-photo = "photo.png",
+photo: "photo.png",
 music:'i-love-you-3000.mp3',
 link:'',
 linkText:'▶ 在新分頁開啟',
@@ -122,13 +122,3 @@ function boot(){let p=0;const L={30:'> Detecting player...',60:'> Loading room..
 try{fit();addEventListener('resize',fit);tick();setInterval(tick,1000);hud()}catch(e){console.error(e)}
 try{boot()}catch(e){console.error(e);showPw()}
 setTimeout(showPw,9000);
-EOF
-
-sed -i.bak -E "s/\?v=[0-9]+/?v=13/g; s/>v[0-9]+</>v13</" index.html
-rm -f index.html.bak
-
-node --check script.js 2>/dev/null && echo "語法檢查通過" || echo "（沒有安裝 node，略過檢查）"
-
-git add -A
-git commit -m "Fix syntax error, embed only"
-git push
