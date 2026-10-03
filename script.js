@@ -46,14 +46,14 @@ function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FO
 const LOCK={frame:['diary','太急了不是這裡！汪汪汪汪——'],wardrobe:['frame','┘我記得哥哥應該更會找東西？'],drawer:['shirt','暫時鎖起來了，也許摸摸小狗可以幫你把鎖撞開。'],plush:['drawer','只有幾個掌印🐾🐾。'],speaker:[null,'好像還沒插上插頭，現在只有會嗷嗚的小狗本人配音。']};
 const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]):false};
 
-function diaryLock(){const w=document.createElement('div');w.append(txt('不管怎麼翻，日記本都紋絲不動。\n（大概是被調皮小狗鎖上了）\n請輸入 4 位數密碼。'));
+function diaryLock(){const w=document.createElement('div');w.append(txt('不管怎麼翻，日記本都紋絲不動。\n（大概是被調皮小狗鎖上了）\n怪盜小狗   留'));
  const i=document.createElement('input');i.type='text';i.className='codein';i.maxLength=4;i.inputMode='numeric';i.placeholder='----';w.append(i);
  const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('密碼錯誤');i.value='';i.focus()}};
  i.onkeydown=e=>{if(e.key==='Enter')go()};
  dlg('LOCKED DIARY',w,[{t:'UNLOCK',f:go},{t:'CLOSE',f:closeDlg}]);setTimeout(()=>i.focus(),60)}
 
 const H={
-window(){toast('窗外的天氣，很適合過生日。')},
+window(){toast('毛茸茸的小狗很溫暖！小太陽今天是晴朗無雲！')},
 diary(){if(!S.diaryOK)return diaryLock();
  found('diary','diary-found');let p=0;const n=CFG.diary.length;
  const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
@@ -108,7 +108,7 @@ $('#stage').addEventListener('click',e=>{const o=e.target.closest('.obj');if(!o)
   H[id]&&H[id]()}catch(err){console.error(err);toast('…')}});
 $('#openBtn').addEventListener('click',openCurtain);
 $('#restart').addEventListener('click',()=>location.reload());
-const HINT={diary:'▶ 日記本上了鎖……',frame:'▶ 這張照片……',wardrobe:'▶ 裡面好像藏著什麼。',drawer:'▶ 抽屜……',plush:'▶ 咦，它在動？',speaker:'▶ 播放音樂',window:'▶ [OPEN] 拉開窗簾',cake:'▶ 吹熄蠟燭',clock:'▶ 看看時間',bed:'▶ 毯子底下好像有東西'};
+const HINT={diary:'▶ 日記本上了鎖……',frame:'▶ 模糊的一片牆，好像放了很多照片……',wardrobe:'▶ 裡面好像藏著什麼。',drawer:'▶ 抽屜……',plush:'▶ 咦，它在動？',speaker:'▶ 播放音樂',window:'▶ [OPEN] 拉開窗簾',cake:'▶ 吹熄蠟燭',clock:'▶ 看看時間',bed:'▶ 毯子底下好像有東西'};
 $$('.obj').forEach(o=>o.dataset.hint=HINT[o.dataset.id]||'▶ 查看');
 $('#stage').addEventListener('mouseover',e=>{const o=e.target.closest('.obj'),h=$('#hint');if(o){h.textContent=o.dataset.hint;h.style.display='block';o.classList.toggle('locked',S.open&&locked(o.dataset.id))}else h.style.display='none'});
 $('#stage').addEventListener('mouseleave',()=>$('#hint').style.display='none');
