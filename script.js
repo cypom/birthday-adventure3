@@ -60,7 +60,6 @@ diary(){if(!S.diaryOK)return diaryLock();
  memDone();show()},
 frame(){found('frame','photo-found');
  const w=document.createElement('div');
- frameNote:'ㄧ直以來都是我珍藏的回憶，和支撐我走下去的動力來源。',
  if(CFG.frame)w.append(txt(CFG.frame));
  if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:50vh;min-height:220px;border:3px solid #fff;margin-top:10px;background:#fff';w.append(f)}
  const u=CFG.link||CFG.embed;
