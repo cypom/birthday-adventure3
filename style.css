@@ -36,7 +36,7 @@ body{background:#0b0a14;color:#fff;font-family:'Press Start 2P','Noto Sans TC',m
 #clock #hh{height:14px;width:4px;left:calc(50% - 2px)}#clock #mm{height:21px;width:2px}
 #clock #ss{height:22px;background:#d22;width:1px}
 #frame{left:150px;top:44px;width:64px;height:80px;background:#fff;border:6px solid #6b3f22;padding:4px}
-#frame b{display:block;height:100%;background:linear-gradient(#9cd,#7b9)}
+#frame b{display:block;height:100%;background:url(photo.jpg) center/cover,linear-gradient(#9cd,#7b9)}
 #wardrobe{left:14px;top:96px;width:100px;height:170px;background:#2a1a10;border:5px solid #4a2b16;overflow:hidden}
 #shirt{position:absolute;left:30px;top:18px;width:40px;height:60px;background:#111;border-top:8px solid #333}
 #wardrobe u{position:absolute;top:0;width:50%;height:100%;background:#9b633a;text-decoration:none;transition:transform 1.8s ease-in-out;border:3px solid #6e4424}
@@ -77,4 +77,3 @@ body{background:#0b0a14;color:#fff;font-family:'Press Start 2P','Noto Sans TC',m
 #dbtn{margin-top:14px;display:flex;gap:10px;justify-content:flex-end}
 .photo{width:100%;max-height:45vh;object-fit:contain;animation:fade 3s;margin-bottom:8px;display:block}@keyframes fade{from{opacity:0}}
 .ph{border:3px dashed #888;padding:30px;text-align:center;font-size:11px;margin-bottom:8px}
-EOF
