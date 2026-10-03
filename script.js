@@ -3,7 +3,7 @@
 const CFG={
 bgm:'slo-mo.mp3',
 music:'i-love-you-3000.mp3',
-photo:'photo.png',
+
 link:'',
 linkText:'▶ 點我看更多',
 embed:'https://cypom.github.io/photomes/',
@@ -60,10 +60,6 @@ diary(){if(!S.diaryOK)return diaryLock();
  memDone();show()},
 frame(){found('frame','photo-found');
 
- if(CFG.frame)w.append(txt(CFG.frame));
- if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:240px;border:3px solid #fff;margin-top:10px';w.append(f)}
- if(CFG.link){const k=document.createElement('a');k.href=CFG.link;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
- dlg('MEMORY: PHOTO',w);memDone()},
 wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
  setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
 drawer(){$('#drawer').classList.add('open');found('drawer');memDone();
