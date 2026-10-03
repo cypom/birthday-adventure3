@@ -59,6 +59,7 @@ diary(){if(!S.diaryOK)return diaryLock();
  const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
  memDone();show()},
 frame(){found('frame','photo-found');
+ const photo = "photo.png";
  const w=document.createElement('div');
  const im=new Image();
  im.className='photo';
