@@ -48,7 +48,7 @@ const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]
 
 function diaryLock(){const w=document.createElement('div');w.append(txt('不管怎麼翻，日記本都會紋絲不動的，哈！\n（大概是被調皮小狗鎖上了）\n怪盜小狗   留'));
  const i=document.createElement('input');i.type='text';i.className='codein';i.maxLength=4;i.inputMode='numeric';i.placeholder='----';w.append(i);
- const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('怎麼可以輸入錯誤，不可饒恕！');i.value='';i.focus()}};
+ const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('怎麼可以輸入錯誤，不可饒恕！૮ ⸌̣ ﻌ ⸍̣ ა');i.value='';i.focus()}};
  i.onkeydown=e=>{if(e.key==='Enter')go()};
  dlg('LOCKED DIARY',w,[{t:'UNLOCK',f:go},{t:'CLOSE',f:closeDlg}]);setTimeout(()=>i.focus(),60)}
 
@@ -70,7 +70,7 @@ wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');mem
 drawer(){$('#drawer').classList.add('open');found('drawer');memDone();
  setTimeout(()=>dlg('DRAWER',txt(CFG.drawer)),1000)},
 plush(){const p=$('#plush');p.classList.add('shake');setTimeout(()=>p.classList.remove('shake'),650);found('plush');memDone();
- setTimeout(()=>dlg('你找到我了！',txt(CFG.plush)),500)},
+ setTimeout(()=>dlg('꒰՞꜆‪⸝⸝⸝⸝‎꜀ ՞꒱و！',txt(CFG.plush)),500)},
 speaker(){const s=$('#speaker');
  try{if(!A.love)A.love=mk(CFG.music,true);
   if(S.mode==='bgm'){S.mode='love';if(A.bgm){A.bgm.pause();A.bgm.currentTime=0}}
@@ -87,7 +87,7 @@ cake(){const c=$('#cake');if(c.classList.contains('out'))return finalCard();
 function finalCard(){const w=document.createElement('div');w.append(txt('QUEST COMPLETE\nYou found every birthday memory.\n\n'),txt(CFG.final));
  dlg('HAPPY BIRTHDAY!',w,[{t:'↻ RESTART',f:()=>location.reload()},{t:'CLOSE',f:closeDlg}])}
 function complete(){setState('memories-complete');
- dlg('ALL MEMORIES FOUND.',txt('QUEST COMPLETE.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('點擊蛋糕，吹熄蠟燭吧');if(!S.playing)H.speaker()}}])}
+ dlg('ALL MEMORIES FOUND.',txt('QUEST COMPLETE.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('當然沒忘記準備女朋友本人親手做的蛋糕！');if(!S.playing)H.speaker()}}])}
 
 function openCurtain(){if(S.open)return;S.open=true;$('#stage').classList.add('open');$('#openBtn').hidden=true;document.body.classList.add('play');
  setState('room');hud();setTimeout(()=>toast('QUEST STARTED\nFind all the birthday memories.'),1800)}
