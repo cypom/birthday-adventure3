@@ -47,4 +47,19 @@ window.addEventListener('error',function(e){var x=document.getElementById('err')
 setTimeout(function(){if(!window.__boot){var x=document.getElementById('err');if(x&&!x.textContent)x.textContent='script.js 沒有成功執行。請確認檔案已上傳到最外層。'}},3000);
 </script>
 </body></html>
+EOF
 
+# script.js 最後加一行「執行成功」標記（只加一次），並移除多餘的 photo 設定行
+grep -q "window.__boot=1" script.js || printf '\nwindow.__boot=1;\n' >> script.js
+sed -i.bak '/^photo *[:=]/d' script.js
+sed -i.bak -E 's#url\(photo\.[a-z]+\) center/cover,##' style.css
+rm -f *.bak
+
+echo "--- 本機檢查 ---"
+grep -c "EOF" index.html style.css script.js
+node --check script.js 2>/dev/null && echo "script.js 語法 OK" || echo "(沒有 node，略過)"
+ls -la
+
+git add -A
+git commit -m "v17 on-screen error display"
+git push
