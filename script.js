@@ -7,7 +7,7 @@ const CFG={
 bgm:'slo-mo.mp3',
 music:'i-love-you-3000.mp3',
 photo:'photo.jpg',
-link:'',                 /* 想加的連結，例如 'https://example.com'，不要就留空 */
+link:'https://cypom.github.io/photomes/',                 /* 想加的連結，例如 'https://example.com'，不要就留空 */
 linkText:'▶ 點我看更多',
 embed:'',                /* 內嵌網址，例如 'https://www.youtube.com/embed/影片ID'，不要就留空 */
 pass:'0530',
