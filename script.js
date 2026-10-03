@@ -59,15 +59,7 @@ diary(){if(!S.diaryOK)return diaryLock();
  const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
  memDone();show()},
 frame(){found('frame','photo-found');
- const photo = "photo.png";
- const w=document.createElement('div');
- const im=new Image();
- im.className='photo';
- im.alt='memory';
- im.style.cssText='width:100%;max-height:60vh;object-fit:contain;display:block;margin:0 auto 10px;border:3px solid #fff;image-rendering:auto';
- im.onerror=()=>{const p=document.createElement('div');p.className='ph';p.textContent='[ 照片載入失敗 ]\n請確認 '+CFG.photo+' 的檔名或網址';im.replaceWith(p)};
- im.src=CFG.photo;
- w.append(im);
+
  if(CFG.frame)w.append(txt(CFG.frame));
  if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:240px;border:3px solid #fff;margin-top:10px';w.append(f)}
  if(CFG.link){const k=document.createElement('a');k.href=CFG.link;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
