@@ -47,11 +47,11 @@
  document.documentElement.classList.add('cat-on');
  draw(4);render();
  setInterval(function(){
-  var walking=(performance.now()-last)<160,want;
+  var walking=(performance.now()-last)<280,want;
   if(walking){frame=(frame+1)%4;want=frame;idle=0}
   else{idle++;want=(Math.floor(idle/5)%2)?1:4}
   if(want!==shown){shown=want;draw(want)}
- },110);
+ },200);
  window.addEventListener('mousemove',function(e){
   var dx=e.clientX-px0;
   if(Math.abs(dx)>1)dir=dx>0?1:-1;
