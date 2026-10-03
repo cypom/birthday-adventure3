@@ -1,9 +1,12 @@
 'use strict';
-/* ===== 在這裡改文字、照片、音樂、密碼 ===== */
+/* ===== 在這裡改文字、照片、連結、音樂、密碼 ===== */
 const CFG={
 bgm:'slo-mo.mp3',
 music:'i-love-you-3000.mp3',
 photo:'photo.jpg',
+link:'',
+linkText:'▶ 點我看更多',
+embed:'',
 pass:'0530',
 diaryCode:'1005',
 bedNote:'毯子底下有一張小紙條，和一個神奇的布包，框啷框啷的不知道是什麼：\n\n「分針停滯的那刻，就是鑰匙。\n記得帶著布包去找小狗。」',
@@ -25,13 +28,11 @@ const txt=t=>{const d=document.createElement('div');d.textContent=t;return d};
 const digits=v=>String(v||'').normalize('NFKC').replace(/\D/g,'');
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.className='show';clearTimeout(toast.t);toast.t=setTimeout(()=>e.className='',2400)}
 
-/* ---- 音樂 ---- */
 function mk(src,loop){try{const a=new Audio(src);a.loop=loop;a.preload='auto';return a}catch(e){return null}}
 function playA(a){try{const r=a&&a.play();r&&r.catch&&r.catch(()=>{})}catch(e){}}
 function startBgm(){if(S.mode!=='bgm')return;if(!A.bgm)A.bgm=mk(CFG.bgm,true);if(A.bgm&&A.bgm.paused)playA(A.bgm)}
 document.addEventListener('pointerdown',startBgm);
 
-/* ---- 對話框 / HUD ---- */
 function dlg(title,node,btns){$('#dt').textContent=title;const b=$('#db');b.className='';void b.offsetWidth;b.className='flip';b.innerHTML='';b.append(node);
 const bt=$('#dbtn');bt.innerHTML='';(btns||[{t:'CLOSE',f:closeDlg}]).forEach(x=>{const k=document.createElement('button');k.type='button';k.className='btn';k.textContent=x.t;k.onclick=x.f;bt.append(k)});$('#dlg').hidden=false}
 function closeDlg(){$('#dlg').hidden=true;const a=S.after;S.after=null;a&&a()}
@@ -45,7 +46,6 @@ function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FO
 const LOCK={frame:['diary','先打開日記本吧。'],wardrobe:['frame','也許照片裡有線索……'],drawer:['shirt','抽屜鎖著，衣櫃裡也許有線索。'],plush:['drawer','抽屜裡好像有提示。'],speaker:[null,'再多找幾個回憶，音響才會有反應。']};
 const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]):false};
 
-/* ---- 日記本密碼鎖 ---- */
 function diaryLock(){const w=document.createElement('div');w.append(txt('日記本上了鎖。\n請輸入 4 位數密碼。'));
  const i=document.createElement('input');i.type='text';i.className='codein';i.maxLength=4;i.inputMode='numeric';i.placeholder='----';w.append(i);
  const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('密碼錯誤');i.value='';i.focus()}};
@@ -60,7 +60,10 @@ diary(){if(!S.diaryOK)return diaryLock();
  memDone();show()},
 frame(){found('frame','photo-found');const w=document.createElement('div');const im=new Image();im.className='photo';
  im.onerror=()=>{const p=document.createElement('div');p.className='ph';p.textContent='[ PHOTO PLACEHOLDER ]\n請放入 photo.jpg';im.replaceWith(p)};
- im.src=CFG.photo;w.append(im,txt(CFG.frame));dlg('MEMORY: PHOTO',w);memDone()},
+ im.src=CFG.photo;w.append(im,txt(CFG.frame));
+ if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:240px;border:3px solid #fff;margin-top:10px';w.append(f)}
+ if(CFG.link){const k=document.createElement('a');k.href=CFG.link;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
+ dlg('MEMORY: PHOTO',w);memDone()},
 wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
  setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
 drawer(){$('#drawer').classList.add('open');found('drawer');memDone();
@@ -85,12 +88,10 @@ function finalCard(){const w=document.createElement('div');w.append(txt('QUEST C
 function complete(){setState('memories-complete');
  dlg('ALL MEMORIES FOUND.',txt('QUEST COMPLETE.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('點擊蛋糕，吹熄蠟燭吧');if(!S.playing)H.speaker()}}])}
 
-/* ---- 窗簾 ---- */
 function openCurtain(){if(S.open)return;S.open=true;$('#stage').classList.add('open');$('#openBtn').hidden=true;document.body.classList.add('play');
  setState('room');hud();setTimeout(()=>toast('QUEST STARTED\nFind all the birthday memories.'),1800)}
 function toCurtain(){$('#boot').classList.add('gone');setState('curtain');$('#openBtn').hidden=false}
 
-/* ---- 開場密碼 ---- */
 function showPw(){if(S.state!=='identity-check')return;setState('password');
  const ok=$('#ok');if(ok)ok.hidden=false;$('#pw').hidden=false;try{$('#pwIn').focus()}catch(e){}}
 function checkPw(){if(S.state!=='password')return;
@@ -99,7 +100,6 @@ function checkPw(){if(S.state!=='password')return;
 $('#pwBtn').addEventListener('click',checkPw);
 $('#pwIn').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();checkPw()}});
 
-/* ---- 房間點擊 / Hover ---- */
 $('#stage').addEventListener('click',e=>{const o=e.target.closest('.obj');if(!o)return;const id=o.dataset.id;
  try{if(S.state==='curtain'||S.state==='identity-check'||S.state==='password'){if(id==='window'&&S.state==='curtain')openCurtain();return}
   if(!$('#dlg').hidden||S.state==='final'&&id!=='cake')return;
@@ -112,7 +112,6 @@ $$('.obj').forEach(o=>o.dataset.hint=HINT[o.dataset.id]||'▶ 查看');
 $('#stage').addEventListener('mouseover',e=>{const o=e.target.closest('.obj'),h=$('#hint');if(o){h.textContent=o.dataset.hint;h.style.display='block';o.classList.toggle('locked',S.open&&locked(o.dataset.id))}else h.style.display='none'});
 $('#stage').addEventListener('mouseleave',()=>$('#hint').style.display='none');
 
-/* ---- 縮放 / 時鐘 / 開機 ---- */
 function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/640,innerHeight/360)})`}
 function tick(){const d=new Date();$('#ss').style.transform=`rotate(${d.getSeconds()*6}deg)`;$('#mm').style.transform='rotate(30deg)';$('#hh').style.transform='rotate(302.5deg)'}
 function boot(){let p=0;const L={30:'> Detecting player...',60:'> Loading room...',90:'> Preparing birthday quest...'};
