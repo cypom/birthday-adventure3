@@ -1,9 +1,15 @@
+cd birthday-adventure
+
+cat > script.js <<'EOF'
 'use strict';
 /* ===== 在這裡改文字、照片、音樂、密碼 ===== */
 const CFG={
 bgm:'slo-mo.mp3',
 music:'i-love-you-3000.mp3',
 photo:'photo.jpg',
+link:'',                 /* 想加的連結，例如 'https://example.com'，不要就留空 */
+linkText:'▶ 點我看更多',
+embed:'',                /* 內嵌網址，例如 'https://www.youtube.com/embed/影片ID'，不要就留空 */
 pass:'0530',
 diaryCode:'1005',
 bedNote:'毯子底下有一張小紙條，和一個神奇的布包，框啷框啷的不知道是什麼：\n\n「分針停滯的那刻，就是鑰匙。\n記得帶著布包去找小狗。」',
@@ -60,7 +66,10 @@ diary(){if(!S.diaryOK)return diaryLock();
  memDone();show()},
 frame(){found('frame','photo-found');const w=document.createElement('div');const im=new Image();im.className='photo';
  im.onerror=()=>{const p=document.createElement('div');p.className='ph';p.textContent='[ PHOTO PLACEHOLDER ]\n請放入 photo.jpg';im.replaceWith(p)};
- im.src=CFG.photo;w.append(im,txt(CFG.frame));dlg('MEMORY: PHOTO',w);memDone()},
+ im.src=CFG.photo;w.append(im,txt(CFG.frame));
+ if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:240px;border:3px solid #fff;margin-top:10px';w.append(f)}
+ if(CFG.link){const k=document.createElement('a');k.href=CFG.link;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
+ dlg('MEMORY: PHOTO',w);memDone()},
 wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
  setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
 drawer(){$('#drawer').classList.add('open');found('drawer');memDone();
@@ -122,3 +131,20 @@ function boot(){let p=0;const L={30:'> Detecting player...',60:'> Loading room..
 try{fit();addEventListener('resize',fit);tick();setInterval(tick,1000);hud()}catch(e){console.error(e)}
 try{boot()}catch(e){console.error(e);showPw()}
 setTimeout(showPw,9000);
+EOF
+
+python3 - <<'PY'
+c=open('style.css',encoding='utf-8').read()
+old="#frame b{display:block;height:100%;background:linear-gradient(#9cd,#7b9)}"
+new="#frame b{display:block;height:100%;background:url(photo.jpg) center/cover,linear-gradient(#9cd,#7b9)}"
+if old in c:
+    open('style.css','w',encoding='utf-8').write(c.replace(old,new,1)); print("OK style.css 已更新")
+else:
+    print("style.css 已經是新版或找不到該行，略過")
+PY
+
+sed -i.bak -E 's/\?v=[0-9]+/?v=8/g' index.html && rm -f index.html.bak
+
+git add -A
+git commit -m "Frame photo/link/embed, keep custom text"
+git push
