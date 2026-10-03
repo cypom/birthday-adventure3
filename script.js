@@ -10,7 +10,7 @@ embed:'https://cypom.github.io/photomes/',
 pass:'0530',
 diaryCode:'1005',
 bedNote:'毯子底下有一張小紙條，和一個神奇的箱子，框啷框啷的不知道是什麼：\n\n「分針停滯的那刻，就是鑰匙。\n記得帶著箱子去找小狗。」',
-diary:['在日記本前來來回回躊躇了許久，\n有太多的話讓我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個人。\n這本日記是為壽星準備的第一個驚喜。\n希望這會是印象深刻、難以忘懷的一天。','聰明的男朋友，\n一定發現了奇怪的地方。','●說不定到處看看會發現什麼，\n小狗也可以繼續幫你聞聞嗅嗅。\n但求助女朋友需要一點賄賂！'],
+diary:['在日記本前來來回回躊躇了許久，\n有太多的話讓我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個人。\n這本日記是為壽星準備的第一個驚喜。\n希望這會是印象深刻、難以忘懷的一天。','聰明的男朋友，\n一定發現了奇怪的地方。','說不定到處看看會發現什麼，\n小狗也可以繼續幫你聞聞嗅嗅。\n但求助女朋友需要一點賄賂！'],
 frame:'一直以來，這些都是我珍藏的回憶、繼續走下去的力氣來源。',
 shirt:'黑色襯衫之外……\n裡面好像放了神祕的袋子，\n是食物……？\n沒開封、借放一小時而已！\n（劃重點括號不能刪）',
 drawer:['有一個棕色的小布包','刻在我心底的名字'],
@@ -80,14 +80,14 @@ speaker(){const s=$('#speaker');
  if(!S.got.speaker){found('speaker');setTimeout(chk,1400)}},
 bed(){const b=$('#bed');b.classList.add('lift');setTimeout(()=>b.classList.remove('lift'),1000);
  setTimeout(()=>dlg('NOTE',txt(CFG.bedNote)),600)},
-rug(){toast('嗯？好像沒有什麼……')},
-clock(){toast('時鐘停在 10:05')},
+rug(){toast('嗯？卡住了嗎？')},
+clock(){toast('神奇時鐘一直停在 10:05！')},
 cake(){const c=$('#cake');if(c.classList.contains('out'))return finalCard();
  c.classList.add('out');$('#stage').classList.add('dim');setState('final');toast('HAPPY BIRTHDAY');setTimeout(finalCard,1800)}};
 function finalCard(){const w=document.createElement('div');w.append(txt('QUEST COMPLETE\nYou found every birthday memory.\n\n'),txt(CFG.final));
  dlg('HAPPY BIRTHDAY!',w,[{t:'↻ RESTART',f:()=>location.reload()},{t:'CLOSE',f:closeDlg}])}
 function complete(){setState('memories-complete');
- dlg('ALL MEMORIES FOUND.',txt('QUEST COMPLETE.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('當然沒忘記準備女朋友本人親手做的蛋糕！');if(!S.playing)H.speaker()}}])}
+ dlg('ALL MEMORIES FOUND.',txt('100% COMPLETION.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('當然沒忘記準備女朋友本人親手做的蛋糕！');if(!S.playing)H.speaker()}}])}
 
 function openCurtain(){if(S.open)return;S.open=true;$('#stage').classList.add('open');$('#openBtn').hidden=true;document.body.classList.add('play');
  setState('room');hud();setTimeout(()=>toast('QUEST STARTED\nFind all the birthday memories.'),1800)}
@@ -115,7 +115,7 @@ $('#stage').addEventListener('mouseleave',()=>$('#hint').style.display='none');
 
 function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/640,innerHeight/360)})`}
 function tick(){const d=new Date();$('#ss').style.transform=`rotate(${d.getSeconds()*6}deg)`;$('#mm').style.transform='rotate(30deg)';$('#hh').style.transform='rotate(302.5deg)'}
-function boot(){let p=0;const L={30:'> Detecting player...',60:'> Loading room...',90:'> Preparing birthday quest...'};
+function boot(){let p=0;const L={30:'> Detecting player...',60:'> Loading room...',90:'> Preparing ...'};
  const t=setInterval(()=>{p+=2;const n=Math.floor(p/10);$('#bar').textContent=`[${'█'.repeat(n)}${'░'.repeat(10-n)}] ${p}%`;
   if(L[p])$('#log').textContent+=L[p]+'\n';
   if(p>=100){clearInterval(t);$('#ok').hidden=false;setTimeout(showPw,1000)}},70)}
