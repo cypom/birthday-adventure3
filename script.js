@@ -43,7 +43,7 @@ const chk=()=>{if(cnt()===6&&!S.done){S.done=true;complete()}};
 const memDone=()=>{S.after=chk};
 function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FOUND!');if(st)setState(st)}
 
-const LOCK={frame:['diary','先打開日記本吧。'],wardrobe:['frame','也許照片裡有線索……'],drawer:['shirt','抽屜鎖著，衣櫃裡也許有線索。'],plush:['drawer','抽屜裡好像有提示。'],speaker:[null,'再多找幾個回憶，音響才會有反應。']};
+const LOCK={frame:['diary','太急了不是這裡！汪汪汪汪——'],wardrobe:['frame','┘我記得哥哥應該更會找東西？'],drawer:['shirt','暫時鎖起來了，也許摸摸小狗可以幫你把鎖撞開。'],plush:['drawer','只有幾個掌印🐾🐾。'],speaker:[null,'好像還沒插上插頭，現在只有會嗷嗚的小狗本人配音。']};
 const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]):false};
 
 function diaryLock(){const w=document.createElement('div');w.append(txt('不管怎麼翻，日記本都紋絲不動。\n（大概是被調皮小狗鎖上了）\n請輸入 4 位數密碼。'));
