@@ -9,7 +9,7 @@ linkText:'▶ 在新分頁開啟',
 embed:'https://cypom.github.io/photomes/',
 pass:'0530',
 diaryCode:'1005',
-bedNote:'毯子底下有一張小紙條，和一個神奇的箱子，框啷框啷的不知道是什麼：\n\n「分針停滯的那刻，就是鑰匙。\n記得帶著箱子去找小狗。」',
+bedNote:'毯子底下有一張小紙條，和一個神奇的箱子，框啷框啷的不知道是什麼：\n\n分針停滯的那刻，就是鑰匙。\n記得帶著箱子去找小狗。',
 diary:['在日記本前來來回回躊躇了許久，\n有太多的話讓我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個人。\n這本日記是為壽星準備的第一個驚喜。\n希望這會是印象深刻、難以忘懷的一天。','聰明的男朋友，\n一定發現了奇怪的地方。','說不定到處看看會發現什麼，\n小狗也可以繼續幫你聞聞嗅嗅。\n但求助女朋友需要一點賄賂！'],
 frame:'一直以來，這些都是我珍藏的回憶、繼續走下去的力氣來源。',
 shirt:'黑色襯衫之外……\n裡面好像放了神祕的袋子，\n是食物……？\n\n\n沒開封、借放一小時而已！\n（劃重點括號不能刪）',
@@ -41,7 +41,7 @@ const q=[['Explore the room',S.open],['Find the diary',S.got.diary],['Find the p
 $('#quest').textContent='QUEST'+(cnt()===6?' COMPLETE':'')+'\n'+q.map(a=>(a[1]?'▣ ':'□ ')+a[0]).join('\n')}
 const chk=()=>{if(cnt()===6&&!S.done){S.done=true;complete()}};
 const memDone=()=>{S.after=chk};
-function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FOUND!');if(st)setState(st)}
+function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FOUND!🐾');if(st)setState(st)}
 
 const LOCK={frame:['diary','太急了不是這裡！汪汪汪汪——'],wardrobe:['frame','我記得哥哥應該更會找東西？'],drawer:['shirt','暫時鎖起來了，也許摸摸小狗可以幫你把鎖撞開。'],plush:['drawer','只有幾個掌印🐾🐾。'],speaker:[null,'好像還沒插上插頭，現在只有會嗷嗚的小狗本人配音。']};
 const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]):false};
