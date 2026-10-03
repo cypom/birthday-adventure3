@@ -38,3 +38,12 @@
 <div id="hint"></div><div id="toast"></div>
 <div id="dlg" hidden><div class="box"><h2 id="dt"></h2><div id="db"></div><div id="dbtn"></div></div></div>
 <script src="script.js?v=9"></script></body></html>
+
+
+sed -i.bak "s/photo:'photo\.jpg'/photo:'photo.png'/" script.js
+sed -i.bak "s/url(photo\.jpg)/url(photo.png)/" style.css
+sed -i.bak "s/?v=9/?v=10/g" index.html
+rm -f script.js.bak style.css.bak index.html.bak
+
+grep -n "photo:" script.js
+grep -n "photo\." style.css
