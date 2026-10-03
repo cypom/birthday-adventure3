@@ -38,23 +38,3 @@
 <div id="dlg" hidden><div class="box"><h2 id="dt"></h2><div id="db"></div><div id="dbtn"></div></div></div>
 <script src="script.js?v=20"></script>
 </body></html>
-EOF
-
-# style.css / script.js：刪掉單獨一行 EOF 以及它後面所有殘留文字
-sed -i.bak '/^EOF$/,$d' style.css
-sed -i.bak '/^EOF$/,$d' script.js
-# script.js：移除之前加的除錯標記
-sed -i.bak '/^window\.__boot=1;$/d' script.js
-rm -f *.bak
-
-echo "--- 檢查 ---"
-echo "EOF 數量（三個都要是 0）："
-grep -c "EOF" index.html style.css script.js
-echo "index.html 最後一行（要是 </body></html>）："
-tail -1 index.html
-echo "有沒有紅字提示殘留（要是 0）："
-grep -c "沒有成功執行" index.html script.js
-
-git add -A
-git commit -m "v20 remove debug text and stray text"
-git push 2>&1
