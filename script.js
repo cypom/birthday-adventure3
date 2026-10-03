@@ -1,6 +1,4 @@
-cd birthday-adventure
 
-cat > script.js <<'EOF'
 'use strict';
 /* ===== 在這裡改文字、連結、音樂、密碼 ===== */
 const CFG={
