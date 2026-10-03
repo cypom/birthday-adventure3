@@ -58,7 +58,7 @@ diary(){if(!S.diaryOK)return diaryLock();
  found('diary','diary-found');let p=0;const n=CFG.diary.length;
  const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
  memDone();show()},
-frame(){found('frame','photo-found');
+
 
 wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
  setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
