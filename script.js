@@ -2,8 +2,7 @@
 /* ===== 在這裡改文字、照片、連結、音樂、密碼 ===== */
 const CFG={
 bgm:'slo-mo.mp3',
-music:'i-love-you-3000.mp3',
-photo = "photo.png";
+music:'i-love-you-3000.mp3';
 link:'',
 linkText:'▶ 點我看更多',
 embed:'https://cypom.github.io/photomes/',
