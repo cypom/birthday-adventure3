@@ -3,7 +3,7 @@
 const CFG={
 bgm:'slo-mo.mp3',
 music:'i-love-you-3000.mp3',
-photo:'photo.jpg',
+photo:'photo.png',
 link:'',
 linkText:'▶ 點我看更多',
 embed:'',
