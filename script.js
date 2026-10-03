@@ -1,10 +1,14 @@
+cd birthday-adventure
+
+cat > script.js <<'EOF'
 'use strict';
-/* ===== 在這裡改文字、照片、連結、音樂、密碼 ===== */
+/* ===== 在這裡改文字、連結、音樂、密碼 ===== */
 const CFG={
 bgm:'slo-mo.mp3',
-music:'i-love-you-3000.mp3';
+photo = "photo.png",
+music:'i-love-you-3000.mp3',
 link:'',
-linkText:'▶ 點我看更多',
+linkText:'▶ 在新分頁開啟',
 embed:'https://cypom.github.io/photomes/',
 pass:'0530',
 diaryCode:'1005',
@@ -57,13 +61,13 @@ diary(){if(!S.diaryOK)return diaryLock();
  found('diary','diary-found');let p=0;const n=CFG.diary.length;
  const show=()=>dlg(`DIARY ${p+1}/${n}`,txt(CFG.diary[p]),[...(p?[{t:'◀ PREV',f:()=>{p--;show()}}]:[]),p<n-1?{t:'NEXT ▶',f:()=>{p++;show()}}:{t:'CLOSE',f:closeDlg}]);
  memDone();show()},
-frame(){found('frame','photo-found');const w=document.createElement('div');const im=new Image();im.className='photo';
- 
- im.src=CFG.photo;w.append(im,txt(CFG.frame));
- if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:240px;border:3px solid #fff;margin-top:10px';w.append(f)}
- if(CFG.link){const k=document.createElement('a');k.href=CFG.link;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
- dlg('MEMORY: PHOTO',w);memDone()},
-
+frame(){found('frame','photo-found');
+ const w=document.createElement('div');
+ if(CFG.frame)w.append(txt(CFG.frame));
+ if(CFG.embed){const f=document.createElement('iframe');f.src=CFG.embed;f.allowFullscreen=true;f.style.cssText='width:100%;height:50vh;min-height:220px;border:3px solid #fff;margin-top:10px;background:#fff';w.append(f)}
+ const u=CFG.link||CFG.embed;
+ if(u){const k=document.createElement('a');k.href=u;k.target='_blank';k.rel='noopener';k.className='btn';k.textContent=CFG.linkText;k.style.cssText='display:inline-block;margin-top:10px;text-decoration:none';w.append(k)}
+ dlg('MEMORY',w);memDone()},
 wardrobe(){$('#wardrobe').classList.add('open');found('shirt','shirt-found');memDone();
  setTimeout(()=>dlg('NEW ITEM FOUND: Black Shirt',txt(CFG.shirt)),1600)},
 drawer(){$('#drawer').classList.add('open');found('drawer');memDone();
@@ -121,3 +125,13 @@ function boot(){let p=0;const L={30:'> Detecting player...',60:'> Loading room..
 try{fit();addEventListener('resize',fit);tick();setInterval(tick,1000);hud()}catch(e){console.error(e)}
 try{boot()}catch(e){console.error(e);showPw()}
 setTimeout(showPw,9000);
+EOF
+
+sed -i.bak -E "s/\?v=[0-9]+/?v=13/g; s/>v[0-9]+</>v13</" index.html
+rm -f index.html.bak
+
+node --check script.js 2>/dev/null && echo "語法檢查通過" || echo "（沒有安裝 node，略過檢查）"
+
+git add -A
+git commit -m "Fix syntax error, embed only"
+git push
