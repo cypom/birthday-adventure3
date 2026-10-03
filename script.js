@@ -46,7 +46,7 @@ function found(id,st){if(S.got[id])return;S.got[id]=1;hud();toast('NEW MEMORY FO
 const LOCK={frame:['diary','先打開日記本吧。'],wardrobe:['frame','也許照片裡有線索……'],drawer:['shirt','抽屜鎖著，衣櫃裡也許有線索。'],plush:['drawer','抽屜裡好像有提示。'],speaker:[null,'再多找幾個回憶，音響才會有反應。']};
 const locked=id=>{const l=LOCK[id];return l?(id==='speaker'?cnt()<4:!S.got[l[0]]):false};
 
-function diaryLock(){const w=document.createElement('div');w.append(txt('日記本上了鎖。\n請輸入 4 位數密碼。'));
+function diaryLock(){const w=document.createElement('div');w.append(txt('不管怎麼翻，日記本都紋絲不動。\n（大概是被調皮小狗鎖上了）\n請輸入 4 位數密碼。'));
  const i=document.createElement('input');i.type='text';i.className='codein';i.maxLength=4;i.inputMode='numeric';i.placeholder='----';w.append(i);
  const go=()=>{if(digits(i.value)===CFG.diaryCode){S.diaryOK=true;$('#diary').classList.remove('lockd');toast('UNLOCKED!');H.diary()}else{toast('密碼錯誤');i.value='';i.focus()}};
  i.onkeydown=e=>{if(e.key==='Enter')go()};
