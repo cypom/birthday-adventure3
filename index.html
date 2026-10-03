@@ -39,3 +39,19 @@
 <div id="hint"></div><div id="toast"></div>
 <div id="dlg" hidden><div class="box"><h2 id="dt"></h2><div id="db"></div><div id="dbtn"></div></div></div>
 <script src="script.js?v=10"></script></body></html>
+
+
+echo "--- 本機有沒有殘留指令文字（都要是 0）---"
+grep -c "EOF" index.html style.css script.js
+
+echo "--- 本機版本號 ---"
+grep -o 'v[0-9]*<' index.html
+
+echo "--- git 狀態 ---"
+git status --short
+git log --oneline -3
+
+echo "--- 推送 ---"
+git add -A
+git commit -m "sync" 2>/dev/null
+git push
