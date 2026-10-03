@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Birthday Adventure</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=17"></head>
+<link rel="stylesheet" href="style.css?v=6"></head>
 <body data-state="identity-check">
 <section id="boot"><div class="box">
 <h1>SYSTEM CHECK</h1><p>身分確認中，檢測</p>
@@ -12,9 +12,8 @@
 <div id="pw" hidden><p>ENTER PASSCODE</p>
 <input id="pwIn" type="text" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="----">
 <button id="pwBtn" type="button" class="btn">▶ OK</button><p id="pwMsg"></p></div>
-<div id="err" style="color:#ff6b6b;font:13px 'Noto Sans TC',sans-serif;white-space:pre-wrap;margin-top:10px"></div>
 </div></section>
-<div id="ver">v17</div>
+<div id="ver">v6</div>
 
 <div id="hud"><div id="quest"></div><div id="mem"></div><button id="restart" type="button" class="btn">↻</button></div>
 
@@ -38,28 +37,4 @@
 
 <div id="hint"></div><div id="toast"></div>
 <div id="dlg" hidden><div class="box"><h2 id="dt"></h2><div id="db"></div><div id="dbtn"></div></div></div>
-
-<script>
-window.addEventListener('error',function(e){var x=document.getElementById('err');if(x)x.textContent+='錯誤：'+e.message+'\n位置：'+String(e.filename||'').split('/').pop()+' 第 '+e.lineno+' 行\n'});
-</script>
-<script src="script.js?v=17" onerror="document.getElementById('err').textContent+='找不到 script.js（檔名或位置不對，或尚未發布）\n'"></script>
-<script>
-setTimeout(function(){if(!window.__boot){var x=document.getElementById('err');if(x&&!x.textContent)x.textContent='script.js 沒有成功執行。請確認檔案已上傳到最外層。'}},3000);
-</script>
-</body></html>
-EOF
-
-# script.js 最後加一行「執行成功」標記（只加一次），並移除多餘的 photo 設定行
-grep -q "window.__boot=1" script.js || printf '\nwindow.__boot=1;\n' >> script.js
-sed -i.bak '/^photo *[:=]/d' script.js
-sed -i.bak -E 's#url\(photo\.[a-z]+\) center/cover,##' style.css
-rm -f *.bak
-
-echo "--- 本機檢查 ---"
-grep -c "EOF" index.html style.css script.js
-node --check script.js 2>/dev/null && echo "script.js 語法 OK" || echo "(沒有 node，略過)"
-ls -la
-
-git add -A
-git commit -m "v17 on-screen error display"
-git push
+<script src="script.js?v=6"></script></body></html>
