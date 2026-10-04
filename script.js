@@ -84,7 +84,7 @@ rug(){toast('嗯？卡住了嗎？')},
 clock(){toast('神奇時鐘一直停在 10:05！')},
 cake(){const c=$('#cake');if(c.classList.contains('out'))return finalCard();
  c.classList.add('out');$('#stage').classList.add('dim');setState('final');toast('HAPPY BIRTHDAY');setTimeout(finalCard,1800)}};
-function finalCard(){const w=document.createElement('div');w.append(txt('QUEST COMPLETE\nYou found every birthday memory.\n\n'),txt(CFG.final));
+function finalCard(){const w=document.createElement('div');w.append(txt('COMPLETE🎉\n成功找到全部的驚喜啦！\n\n'),txt(CFG.final));
  dlg('HAPPY BIRTHDAY!',w,[{t:'↻ RESTART',f:()=>location.reload()},{t:'CLOSE',f:closeDlg}])}
 function complete(){setState('memories-complete');
  dlg('ALL MEMORIES FOUND.',txt('100% COMPLETION.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('當然沒忘記準備女朋友本人親手做的蛋糕！');if(!S.playing)H.speaker()}}])}
