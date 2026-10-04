@@ -60,8 +60,23 @@ body{background:#0b0a14;color:#fff;font-family:'Press Start 2P','Noto Sans TC',m
 .ear{position:absolute;top:-10px;left:0;width:10px;height:12px;background:#7a4f28;animation:ear 5s infinite steps(2)}.ear.r{left:auto;right:0}
 @keyframes bob{50%{margin-top:-2px}}@keyframes ear{0%,90%{height:12px}95%{height:8px}}
 #plush.shake{animation:shake .6s steps(6)}@keyframes shake{25%{margin-left:-4px}75%{margin-left:4px}}
-#cake{z-index:5;left:330px;top:262px;width:56px;height:40px;background:#f7c5d5;border:4px solid #c2587a;animation:bob 2s infinite steps(2)}
-.cn{position:absolute;top:-18px;width:4px;height:14px;background:#fff}.cn:nth-child(1){left:10px}.cn:nth-child(2){left:22px}.cn:nth-child(3){left:34px}
+#cake{z-index:5;left:322px;top:258px;width:76px;height:44px;background:#c99a7e;border:4px solid #f4f1ec;box-shadow:inset 0 -8px 0 #b98369;animation:bob 2s infinite steps(2)}
+#cake .peach{position:absolute;left:22px;top:2px;width:8px;height:6px;background:#ffcf5a;box-shadow:8px 2px 0 #ffb62e,16px 0 0 #ffcf5a,4px 6px 0 #ffb62e,12px 6px 0 #ffcf5a,20px 6px 0 #ffb62e}
+#cake .ch{position:absolute;width:12px;height:12px;background:#6a1230;border:2px solid #3d0a1c;border-radius:40%}
+#cake .ch::after{content:'';position:absolute;left:2px;top:2px;width:3px;height:3px;background:#c4506e}
+#cake .c1{left:4px;top:0}
+#cake .c2{left:48px;top:-3px}
+#cake .c3{left:56px;top:11px}
+#cake .c4{left:12px;top:14px}
+#cake .dr{position:absolute;bottom:3px;width:14px;height:10px;background:#d8ad94;border-radius:50% 50% 0 0}
+#cake .d1{left:2px}
+#cake .d2{left:18px}
+#cake .d3{left:34px}
+#cake .d4{left:50px}
+.cn{position:absolute;top:-18px;width:4px;height:14px;background:#fff}.cn:nth-child(n){z-index:2}
+#cake .cn:nth-of-type(1){left:26px}
+#cake .cn:nth-of-type(2){left:34px}
+#cake .cn:nth-of-type(3){left:42px}
 .cn b{position:absolute;top:-8px;left:-2px;width:8px;height:8px;background:#ffb300;animation:blink .4s infinite steps(2)}
 #cake.out .cn b{display:none}
 #openBtn{position:absolute;left:260px;top:140px;z-index:10;animation:blink 1.2s infinite steps(2)}
