@@ -9,11 +9,11 @@ linkText:'▶ 在新分頁開啟',
 embed:'https://cypom.github.io/photomes/',
 pass:'0530',
 diaryCode:'1005',
-bedNote:'毯子底下有一張小紙條，和一個神奇的箱子，框啷框啷的不知道是什麼：\n\n分針停滯的那刻，就是鑰匙。\n記得帶著箱子去找小狗。',
+bedNote:'毯子底下有一張小紙條，和一個神奇的箱子，框啷框啷的不知道是什麼：\n\n分針停留的那刻就是鑰匙。\n記得帶著箱子去找小狗。',
 diary:['在日記本前來來回回躊躇了許久，\n有太多的話讓我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個人。\n這本日記是為壽星準備的第一個驚喜。\n希望這會是印象深刻、難以忘懷的一天。','聰明的男朋友，\n一定發現了奇怪的地方。','說不定到處看看會發現什麼，\n小狗也可以繼續幫你聞聞嗅嗅。\n但求助女朋友需要一點賄賂！'],
 frame:'一直以來，這些都是我珍藏的回憶、繼續走下去的力氣來源。',
 shirt:'黑色襯衫之外……\n裡面好像放了神祕的袋子，\n是食物……？\n\n\n沒開封、借放一小時而已！\n（劃重點括號不能刪）',
-drawer:['有一個棕色的小布包','刻在我心底的名字'],
+drawer:['有一個棕色的小布包，\n是刻在我心底的名字'],
 plush:'汪汪汪汪汪——\n經檢測，翟家小狗已經五分鐘沒有被摸了，\n請立刻撫摸。',
 speaker:'I Love You 3000',
 final:'親愛的 ○○：\n\n生日快樂！\n這一路上的每一個回憶，都是因為有你才特別。\n願新的一歲，溫暖、可愛、一切順心。\n\n— 署名'};
@@ -108,7 +108,7 @@ $('#stage').addEventListener('click',e=>{const o=e.target.closest('.obj');if(!o)
   H[id]&&H[id]()}catch(err){console.error(err);toast('…')}});
 $('#openBtn').addEventListener('click',openCurtain);
 $('#restart').addEventListener('click',()=>location.reload());
-const HINT={diary:'▶ 🐾🐾🐾🐾🐾',frame:'▶ 模糊的一片牆，好像放了很多照片……',wardrobe:'▶ 裡面好像藏著什麼。',drawer:'▶ 驚喜在這裡嗎……',plush:'▶ 咦，它在動？',speaker:'▶ 播放音樂',window:'▶ [OPEN] 拉開窗簾',cake:'▶ 呼——不對，吹熄前要先許願！',clock:'▶ 幾點幾分了，為什麼還不摸摸小狗！',bed:'▶ 床上的毯子鼓起來了？'};
+const HINT={diary:'▶ 🐾🐾🐾🐾🐾',frame:'▶ 模糊的一片牆，好像放了很多照片……',wardrobe:'▶ 好像有被打開的痕跡。',drawer:'▶ 驚喜在這裡嗎……',plush:'▶毛茸茸、有兩個耳朵？',speaker:'▶ 播放音樂',window:'▶ [OPEN] 拉開窗簾',cake:'▶ 呼——不對，吹熄前要先許願！',clock:'▶ 幾點幾分了，為什麼還不摸摸小狗！',bed:'▶ 床上的毯子鼓起來了？'};
 $$('.obj').forEach(o=>o.dataset.hint=HINT[o.dataset.id]||'▶ 查看');
 $('#stage').addEventListener('mouseover',e=>{const o=e.target.closest('.obj'),h=$('#hint');if(o){h.textContent=o.dataset.hint;h.style.display='block';o.classList.toggle('locked',S.open&&locked(o.dataset.id))}else h.style.display='none'});
 $('#stage').addEventListener('mouseleave',()=>$('#hint').style.display='none');
