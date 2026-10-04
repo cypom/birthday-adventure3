@@ -39,3 +39,15 @@
 <script src="cat.js"></script>
 <script src="script.js?v=20"></script>
 </body></html>
+
+rm -f wish-config.js
+sed -i.bak '/wish-config.js/d' index.html
+rm -f *.bak
+grep -q 'src="wish.js"' index.html || { awk '/<\/body>/{print "<script src=\"wish.js\"></script>"}1' index.html > index.tmp && mv index.tmp index.html; }
+echo "--- 檢查 ---"
+grep -n "script" index.html
+grep -c "EOF" wish.js index.html
+grep -n "var WISH_URL" wish.js
+git add -A
+git commit -m "Add wish input before candle"
+git push 2>&1
