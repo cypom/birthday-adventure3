@@ -1,5 +1,5 @@
 (function(){try{
- var WISH_URL='';
+ var WISH_URL='https://script.google.com/macros/s/AKfycbxLmCo0z_ZBmouoFdDA8AOx5tmbg3WUPd6JRiM5ouBPyaWJvM3kCQ0EyqapSqW-2655/exec';
  if(typeof H==='undefined'||typeof dlg!=='function')return;
  var sent=false;
  function blow(){
