@@ -29,7 +29,7 @@
    if(busy)return;
    var v=t.value.trim();
    if(!v){msg.style.color='#ff6b6b';msg.textContent='請先輸入內容。';t.focus();return}
-   if(!WISH_URL){closeDlg();blow();return}
+   if(WISH_URL.indexOf('https://')!==0){closeDlg();blow();return}
    busy=true;msg.style.color='#ffe066';msg.textContent='送出中……';
    fetch(WISH_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({text:v})})
     .then(function(){sent=true;closeDlg();blow()})
