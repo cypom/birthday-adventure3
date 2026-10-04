@@ -12,7 +12,7 @@
   var w=document.createElement('div');
   w.append(txt('吹蠟燭之前當然要先許願，或寫下想說的話吧！\n生日快樂！'));
   var t=document.createElement('textarea');
-  t.maxLength=500;t.rows=5;t.placeholder='在這裡輸入……';
+  t.maxLength=500;t.rows=5;t.placeholder='🐾按下掌印……';
   t.style.cssText='display:block;width:100%;margin-top:12px;padding:10px;font:15px/1.7 "Noto Sans TC",sans-serif;background:#000;color:#7dff9b;border:3px solid #fff;resize:vertical';
   var msg=document.createElement('div');
   msg.style.cssText='color:#ff6b6b;margin-top:8px;min-height:22px';
