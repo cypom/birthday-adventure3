@@ -10,13 +10,13 @@ embed:'https://cypom.github.io/photomes/',
 pass:'0530',
 diaryCode:'1005',
 bedNote:'毯子底下有一張小紙條，和一個神奇的箱子，框啷框啷的不知道是什麼：\n\n分針停留的那刻就是鑰匙。\n記得帶著箱子去找小狗。',
-diary:['在日記本前來來回回躊躇了許久，\n有太多的話讓我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個人。\n這本日記是為壽星準備的第一個驚喜。\n希望這會是印象深刻、難以忘懷的一天。','聰明的男朋友，\n一定發現了奇怪的地方。','說不定到處看看會發現什麼，\n小狗也可以繼續幫你聞聞嗅嗅。\n但求助女朋友需要一點賄賂！'],
+diary:['在日記本前來來回回躊躇了許久，\n有太多的話讓我始終不知道該如何在這個特別的日子開口，\n那就……希望我是第一個親口說出祝福的那個人。\n這是為你準備的第一個驚喜。\n希望這會是印象深刻、難以忘懷的一天。','聰明的男朋友，\n一定發現了奇怪的地方。','說不定到處看看會發現什麼，\n小狗也可以繼續幫你聞聞嗅嗅。\n但求助女朋友需要一點賄賂！'],
 frame:'一直以來，這些都是我珍藏的回憶、繼續走下去的力氣來源。',
 shirt:'黑色襯衫之外……\n裡面好像放了神祕的袋子，\n是食物……？\n糟糕，小狗叼著袋子肇事逃逸了！\n\n\n沒開封、借放一小時而已！\n（劃重點括號不能刪）',
 drawer:['有一個棕色的小布包，\n是刻在我心底的名字。\n\n\n記得帶著小布包去找小狗！'],
 plush:'汪汪汪汪汪——\n經檢測，翟家小狗已經五分鐘沒有被摸了，\n請立刻撫摸。',
 speaker:'I Love You 3000',
-final:'親愛的 ○○：\n\n生日快樂！\n這一路上的每一個回憶，都是因為有你才特別。\n願新的一歲，溫暖、可愛、一切順心。\n\n— 署名'};
+final:'子旭：\n\n\n生日快樂！\n去年的今天，我也一樣躺在你的懷裡撒嬌。\n今年的這一天，我依然在喜歡的人的懷裡。\n\n我總忍不住依賴、倚靠讓我有安全感的那個人，\n他可靠、帥氣又溫暖，\n我永遠都能在他的身邊當幸福又開心的小狗\n剩下想說的……在情書裡。\n謝謝你的存在。\n\n\n生日快樂，我的快樂。\n\n小鳶'};
 /* ======================================= */
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S={state:'identity-check',got:{},open:false,playing:false,mode:'bgm',diaryOK:false,done:false,after:null};
@@ -90,7 +90,7 @@ function complete(){setState('memories-complete');
  dlg('ALL MEMORIES FOUND.',txt('100% COMPLETION.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('當然沒忘記準備女朋友本人親手做的蛋糕！');if(!S.playing)H.speaker()}}])}
 
 function openCurtain(){if(S.open)return;S.open=true;$('#stage').classList.add('open');$('#openBtn').hidden=true;document.body.classList.add('play');
- setState('room');hud();setTimeout(()=>toast('QUEST STARTED\nFind all the birthday memories.'),1800)}
+ setState('room');hud();setTimeout(()=>toast('STARTED\nFind all the birthday memories.'),1800)}
 function toCurtain(){$('#boot').classList.add('gone');setState('curtain');$('#openBtn').hidden=false}
 
 function showPw(){if(S.state!=='identity-check')return;setState('password');
