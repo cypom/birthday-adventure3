@@ -28,9 +28,9 @@
   function go(){
    if(busy)return;
    var v=t.value.trim();
-   if(!v){msg.style.color='#ff6b6b';msg.textContent='請先輸入內容。';t.focus();return}
+   if(!v){msg.style.color='#ff6b6b';msg.textContent='小狗等待中……';t.focus();return}
    if(WISH_URL.indexOf('https://')!==0){closeDlg();blow();return}
-   busy=true;msg.style.color='#ffe066';msg.textContent='送出中……';
+   busy=true;msg.style.color='#ffe066';msg.textContent='快遞速件！';
    fetch(WISH_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({text:v})})
     .then(function(){sent=true;closeDlg();blow()})
     .catch(function(){
