@@ -16,7 +16,7 @@ shirt:'黑色襯衫之外……\n裡面好像放了神祕的袋子，\n是食物
 drawer:['有一個棕色的小布包，\n是刻在我心底的名字。\n\n\n記得帶著小布包去找小狗！'],
 plush:'汪汪汪汪汪——\n經檢測，翟家小狗已經五分鐘沒有被摸了，\n請立刻撫摸。',
 speaker:'I Love You 3000',
-final:'子旭：\n\n\n生日快樂！\n去年的今天，我也一樣躺在你的懷裡撒嬌。\n今年的這一天，我依然在喜歡的人的懷裡。\n\n我總忍不住依賴、倚靠讓我有安全感的那個人，\n他可靠、帥氣又溫暖，\n我永遠都能在他的身邊當幸福又開心的小狗\n剩下想說的……在情書裡。\n謝謝你的存在。\n\n\n生日快樂，我的快樂。\n\n小鳶'};
+final:'子旭：\n生日快樂！\n去年的今天，我也一樣躺在你的懷裡撒嬌。\n今年的這一天，我依然在喜歡的人的懷裡。\n\n我總忍不住依賴、倚靠讓我有安全感的那個人，\n他可靠、帥氣又溫暖，\n我永遠都能在他的身邊當幸福又開心的小狗\n剩下想說的……在情書裡。\n謝謝你的存在。\n\n\n生日快樂，我的快樂。\n\n小鳶'};
 /* ======================================= */
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S={state:'identity-check',got:{},open:false,playing:false,mode:'bgm',diaryOK:false,done:false,after:null};
@@ -84,7 +84,7 @@ rug(){toast('嗯？卡住了嗎？')},
 clock(){toast('神奇時鐘一直停在 10:05！')},
 cake(){const c=$('#cake');if(c.classList.contains('out'))return finalCard();
  c.classList.add('out');$('#stage').classList.add('dim');setState('final');toast('HAPPY BIRTHDAY');setTimeout(finalCard,1800)}};
-function finalCard(){const w=document.createElement('div');w.append(txt('COMPLETE🎉\n成功找到全部的驚喜啦！\n\n'),txt(CFG.final));
+function finalCard(){const w=document.createElement('div');w.append(txt('COMPLETE🎉\n\n\n'),txt(CFG.final));
  dlg('HAPPY BIRTHDAY!',w,[{t:'↻ RESTART',f:()=>location.reload()},{t:'CLOSE',f:closeDlg}])}
 function complete(){setState('memories-complete');
  dlg('ALL MEMORIES FOUND.',txt('100% COMPLETION.'),[{t:'▶ CONTINUE',f:()=>{closeDlg();$('#stage').classList.add('bright');$('#cake').hidden=false;toast('當然沒忘記準備女朋友本人親手做的蛋糕！');if(!S.playing)H.speaker()}}])}
